@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Student Voice">
+  <rect width="32" height="32" rx="8" fill="#2563eb"/>
+  <path
+    fill="#ffffff"
+    d="M8 10.5c0-1.38 1.12-2.5 2.5-2.5h11c1.38 0 2.5 1.12 2.5 2.5v6.5c0 1.38-1.12 2.5-2.5 2.5H14l-3.5 3v-3H10.5A2.5 2.5 0 0 1 8 17V10.5z"
+  />
+  <rect x="11" y="12" width="10" height="1.6" rx=".8" fill="#2563eb" opacity=".85"/>
+  <rect x="11" y="15.2" width="7.5" height="1.6" rx=".8" fill="#2563eb" opacity=".65"/>
+  <rect x="11" y="18.4" width="9" height="1.6" rx=".8" fill="#2563eb" opacity=".45"/>
+</svg>
