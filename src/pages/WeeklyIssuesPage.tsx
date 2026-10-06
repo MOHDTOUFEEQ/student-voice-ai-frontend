@@ -8,28 +8,33 @@ type Issue = {
 }
 
 export function WeeklyIssuesPage() {
-  const { t, locale } = useLocale()
+  const { t } = useLocale()
   const [week, setWeek] = useState<number | null>(null)
   const [frequent, setFrequent] = useState<Issue[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     async function load() {
       setLoading(true)
+      setError('')
       try {
         const w = await api.get<{ academic_week: number }>('/api/public/current-week')
         setWeek(w.academic_week)
         const data = await api.get<{
           academic_week: number
           most_frequent: Issue[]
-        }>(`/api/public/weekly/issues?lang=${encodeURIComponent(locale)}`)
-        setFrequent(data.most_frequent)
+        }>('/api/public/weekly/issues')
+        setFrequent(data.most_frequent ?? [])
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load weekly issues')
+        setFrequent([])
       } finally {
         setLoading(false)
       }
     }
     load()
-  }, [locale])
+  }, [])
 
   if (loading) return <p>{t.common.loading}</p>
 
@@ -43,7 +48,8 @@ export function WeeklyIssuesPage() {
       </header>
       <section>
         <h2 className="text-lg font-semibold">{t.weeklyIssues.sectionTitle}</h2>
-        {frequent.length === 0 ? (
+        {error && <p className="mt-3 text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {!error && frequent.length === 0 ? (
           <p className="mt-3 text-sm text-[var(--color-text-muted)]">{t.common.emptyWeek}</p>
         ) : (
           <ul className="mt-4 space-y-3">

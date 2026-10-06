@@ -21,8 +21,6 @@ export function FeedbackForm({ type, id }: Props) {
   const isFeedback = type === 'feedback'
   const copy = isFeedback ? t.feedback : t.suggest
 
-  
-
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
@@ -40,72 +38,87 @@ export function FeedbackForm({ type, id }: Props) {
 
   return (
     <>
-      {loading && createPortal(
-        <div className="fixed inset-0 z-[9999] flex h-[100dvh] min-h-screen w-screen items-center justify-center bg-black/40 px-4" role="status" aria-live="polite">
-          <div className="flex items-center gap-3 rounded-xl bg-[var(--color-surface)] px-6 py-5 text-sm font-medium text-[var(--color-text)] shadow-xl">
-            <span aria-hidden="true" className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600/30 border-t-brand-600" />
-            {t.common.uploading}
-          </div>
-        </div>,
-        document.body,
-      )}
-    <form id={id} onSubmit={onSubmit} className="space-y-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-sm md:p-8">
-      <div>
-        <h2 className="text-xl font-semibold">{copy.title}</h2>
-        <p className="mt-1 text-sm text-[var(--color-text-muted)]">{copy.description}</p>
-      </div>
-      <label className="block space-y-2">
-        <span className="text-sm font-medium">{t.feedback.messageLabel}</span>
-        <textarea
-          required
-          minLength={10}
-          rows={5}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
-        />
-      </label>
-      
-      <label className="block space-y-2">
-        <span className="text-sm font-medium">{t.feedback.categoryLabel}</span>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm"
-        >
-          {t.categories.map((c) => (
-            <option key={c.value} value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      <fieldset>
-        <legend className="text-sm font-medium">{t.feedback.importanceLabel}</legend>
-        <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {(['low', 'medium', 'high', 'critical'] as const).map((level) => (
-            <label key={level} className="flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm">
-              <input
-                type="radio"
-                name={`importance-${type}`}
-                value={level}
-                checked={importance === level}
-                onChange={() => setImportance(level)}
+      {loading &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[9999] flex h-[100dvh] min-h-screen w-screen items-center justify-center bg-black/40 px-4"
+            role="status"
+            aria-live="polite"
+          >
+            <div className="flex items-center gap-3 rounded-xl bg-[var(--color-surface)] px-6 py-5 text-sm font-medium text-[var(--color-text)] shadow-xl">
+              <span
+                aria-hidden="true"
+                className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600/30 border-t-brand-600"
               />
-              {t.common[level]}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-lg bg-brand-600 px-4 py-3 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60 sm:w-auto"
+              {t.common.uploading}
+            </div>
+          </div>,
+          document.body,
+        )}
+      <form
+        id={id}
+        onSubmit={onSubmit}
+        className="space-y-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-sm md:p-8"
       >
-        {loading ? t.common.loading : isFeedback ? t.feedback.submit : t.suggest.submit}
-      </button>
-    </form>
+        <div>
+          <h2 className="text-xl font-semibold">{copy.title}</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">{copy.description}</p>
+        </div>
+        <label className="block space-y-2">
+          <span className="text-sm font-medium">{t.feedback.messageLabel}</span>
+          <textarea
+            required
+            minLength={10}
+            rows={5}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
+          />
+        </label>
+
+        <label className="block space-y-2">
+          <span className="text-sm font-medium">{t.feedback.categoryLabel}</span>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm"
+          >
+            {t.categories.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <fieldset>
+          <legend className="text-sm font-medium">{t.feedback.importanceLabel}</legend>
+          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {(['low', 'medium', 'high', 'critical'] as const).map((level) => (
+              <label
+                key={level}
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm"
+              >
+                <input
+                  type="radio"
+                  name={`importance-${type}`}
+                  value={level}
+                  checked={importance === level}
+                  onChange={() => setImportance(level)}
+                />
+                {t.common[level]}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-lg bg-brand-600 px-4 py-3 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60 sm:w-auto"
+        >
+          {loading ? t.common.loading : isFeedback ? t.feedback.submit : t.suggest.submit}
+        </button>
+      </form>
     </>
   )
 }
