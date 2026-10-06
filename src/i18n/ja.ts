@@ -92,6 +92,7 @@ export const ja: LocaleDictionary = {
   ],
   common: {
     loading: '読み込み中…',
+    uploading: '送信しています…',
     emptyWeek: '今週はまだフィードバックがありません。',
     submitError: '送信に失敗しました',
     diceError: '例文を生成できませんでした。',

@@ -92,6 +92,7 @@ export const zhCN: LocaleDictionary = {
   ],
   common: {
     loading: '加载中…',
+    uploading: '正在发送您的提交…',
     emptyWeek: '本周尚无反馈提交。',
     submitError: '提交失败',
     diceError: '暂时无法生成示例。',

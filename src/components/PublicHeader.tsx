@@ -1,12 +1,12 @@
 import { Link, NavLink } from 'react-router-dom'
-import { localeOptions, useLocale, type LocaleCode } from '../contexts/LocaleContext'
+import { useLocale } from '../contexts/LocaleContext'
 import { useTheme } from '../contexts/ThemeContext'
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `text-sm font-medium transition-colors ${isActive ? 'text-brand-600 dark:text-brand-100' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'}`
 
 export function PublicHeader() {
-  const { t, locale, setLocale } = useLocale()
+  const { t } = useLocale()
   const { theme, toggle } = useTheme()
 
   const navItems: [string, string][] = [
@@ -35,18 +35,6 @@ export function PublicHeader() {
           <Link to="/admin" className="text-xs text-[var(--color-text-muted)] hover:underline">
             {t.nav.admin}
           </Link>
-          <select
-            value={locale}
-            onChange={(e) => setLocale(e.target.value as LocaleCode)}
-            className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1 text-xs"
-            aria-label="Language"
-          >
-            {localeOptions.map((opt) => (
-              <option key={opt.code} value={opt.code}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
           <button
             type="button"
             onClick={toggle}
@@ -66,18 +54,6 @@ export function PublicHeader() {
         <Link to="/admin" className="whitespace-nowrap text-xs text-[var(--color-text-muted)]">
           {t.nav.admin}
         </Link>
-        <select
-          value={locale}
-          onChange={(e) => setLocale(e.target.value as LocaleCode)}
-          className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-1 py-0.5 text-xs"
-          aria-label="Language"
-        >
-          {localeOptions.map((opt) => (
-            <option key={opt.code} value={opt.code}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
         <button
           type="button"
           onClick={toggle}

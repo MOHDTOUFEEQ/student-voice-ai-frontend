@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
 import { useLocale } from '../contexts/LocaleContext'
@@ -53,6 +54,16 @@ export function FeedbackForm({ type, id }: Props) {
   }
 
   return (
+    <>
+      {loading && createPortal(
+        <div className="fixed inset-0 z-[9999] flex h-[100dvh] min-h-screen w-screen items-center justify-center bg-black/40 px-4" role="status" aria-live="polite">
+          <div className="flex items-center gap-3 rounded-xl bg-[var(--color-surface)] px-6 py-5 text-sm font-medium text-[var(--color-text)] shadow-xl">
+            <span aria-hidden="true" className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600/30 border-t-brand-600" />
+            {t.common.uploading}
+          </div>
+        </div>,
+        document.body,
+      )}
     <form id={id} onSubmit={onSubmit} className="space-y-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-sm md:p-8">
       <div>
         <h2 className="text-xl font-semibold">{copy.title}</h2>
@@ -69,7 +80,7 @@ export function FeedbackForm({ type, id }: Props) {
           className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
         />
       </label>
-      {isFeedback && (
+      {/* {isFeedback && (
         <button
           type="button"
           onClick={onDice}
@@ -79,7 +90,7 @@ export function FeedbackForm({ type, id }: Props) {
           <span aria-hidden>🎲</span>
           {diceLoading ? t.common.loading : t.feedback.dice}
         </button>
-      )}
+      )} */}
       <label className="block space-y-2">
         <span className="text-sm font-medium">{t.feedback.categoryLabel}</span>
         <select
@@ -120,5 +131,6 @@ export function FeedbackForm({ type, id }: Props) {
         {loading ? t.common.loading : isFeedback ? t.feedback.submit : t.suggest.submit}
       </button>
     </form>
+    </>
   )
 }

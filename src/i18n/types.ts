@@ -85,6 +85,7 @@ export type LocaleDictionary = {
   categories: CategoryOption[]
   common: {
     loading: string
+    uploading: string
     emptyWeek: string
     submitError: string
     diceError: string

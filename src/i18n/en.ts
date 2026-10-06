@@ -100,6 +100,7 @@ export const en = {
   ],
   common: {
     loading: 'Loading…',
+    uploading: 'Sending your submission…',
     emptyWeek: 'No feedback has been submitted this week yet.',
     submitError: 'Submission failed',
     diceError: 'Could not generate a suggestion right now.',

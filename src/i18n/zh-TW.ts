@@ -92,6 +92,7 @@ export const zhTW: LocaleDictionary = {
   ],
   common: {
     loading: '載入中…',
+    uploading: '正在傳送您的提交…',
     emptyWeek: '本週尚無回饋提交。',
     submitError: '提交失敗',
     diceError: '暫時無法產生範例。',
