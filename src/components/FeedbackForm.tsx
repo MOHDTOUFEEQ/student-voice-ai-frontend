@@ -10,7 +10,7 @@ type Props = {
 }
 
 export function FeedbackForm({ type, id }: Props) {
-  const { t, locale } = useLocale()
+  const { t } = useLocale()
   const navigate = useNavigate()
   const [message, setMessage] = useState('')
   const [category, setCategory] = useState<string>(t.categories[0]?.value ?? 'Other')
