@@ -80,17 +80,7 @@ export function FeedbackForm({ type, id }: Props) {
           className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/40"
         />
       </label>
-      {/* {isFeedback && (
-        <button
-          type="button"
-          onClick={onDice}
-          disabled={diceLoading}
-          className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm hover:bg-[var(--color-surface-muted)]"
-        >
-          <span aria-hidden>🎲</span>
-          {diceLoading ? t.common.loading : t.feedback.dice}
-        </button>
-      )} */}
+      
       <label className="block space-y-2">
         <span className="text-sm font-medium">{t.feedback.categoryLabel}</span>
         <select
