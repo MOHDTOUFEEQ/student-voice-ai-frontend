@@ -16,27 +16,12 @@ export function FeedbackForm({ type, id }: Props) {
   const [category, setCategory] = useState<string>(t.categories[0]?.value ?? 'Other')
   const [importance, setImportance] = useState('medium')
   const [loading, setLoading] = useState(false)
-  const [diceLoading, setDiceLoading] = useState(false)
   const [error, setError] = useState('')
 
   const isFeedback = type === 'feedback'
   const copy = isFeedback ? t.feedback : t.suggest
 
-  async function onDice() {
-    setDiceLoading(true)
-    setError('')
-    try {
-      const res = await api.post<{ message: string }>(
-        `/api/public/ai/suggest-feedback?lang=${encodeURIComponent(locale)}`,
-        { category },
-      )
-      setMessage(res.message)
-    } catch {
-      setError(t.common.diceError)
-    } finally {
-      setDiceLoading(false)
-    }
-  }
+  
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
